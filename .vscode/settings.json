@@ -1,6 +1,6 @@
 
 {
-    "files.defaultLanguage": "python", // ctrl+N新建文件后默认的语言
+    "files.defaultLanguage": "cpp", // ctrl+N新建文件后默认的语言
 
     "code-runner.runInTerminal": true, // 设置成false会在“输出”中输出，无法交互
     "code-runner.executorMap": {
