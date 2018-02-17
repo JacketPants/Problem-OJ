@@ -4,20 +4,6 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
-        {
-            "name": "Python",
-            "type": "python",
-            "request": "launch",
-            "stopOnEntry": false,
-            "pythonPath": "${config:python.pythonPath}",
-            "program": "${file}",
-            "cwd": "",
-            "console": "externalTerminal",
-            "env": {},
-            "envFile": "${workspaceFolder}/.env",
-            "debugOptions": []
-        },
         {
             "name": "C++", // 配置名称，将会在启动配置的下拉菜单中显示
             "type": "cppdbg", // 配置类型，这里只能为cppdbg
@@ -39,6 +25,19 @@
                 }
             ],
             "preLaunchTask": "Compile" // 调试会话开始前执行的任务，一般为编译程序。与tasks.json的label相对应
+        },
+        {
+            "name": "Python",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "pythonPath": "${config:python.pythonPath}",
+            "program": "${file}",
+            "cwd": "",
+            "console": "externalTerminal",
+            "env": {},
+            "envFile": "${workspaceFolder}/.env",
+            "debugOptions": []
         },
     ]
 }
