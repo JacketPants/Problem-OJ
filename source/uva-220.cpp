@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <cstring>
 #include <iostream>
 using namespace std;
@@ -28,6 +29,8 @@ bool isLegal(int x, int y)
 }
 bool Move(int x, int y)
 {
+    if (d[x][y] != '-')
+        return false;
     bool isMove = false;
     char g = (now == 'B' ? 'W' : 'B');
     for (int i = 0; i < 8; i++)
@@ -53,18 +56,37 @@ bool Move(int x, int y)
         }
     }
     // cout << false;
-    return isMove;
+    if (isMove)
+    {
+        d[x][y] = now;
+        return true;
+    }
+    now = (now == 'B' ? 'W' : 'B');
+    Move(x, y);
+    d[x][y] = now;
+    return false;
+}
+int Count(char ch)
+{
+    int cnt = 0;
+    for (int i = 1; i <= 8; i++)
+        for (int j = 1; j <= 8; j++)
+            if (d[i][j] == ch)
+                cnt++;
+    return cnt;
 }
 int main()
 {
-    int t;
+    char out[100000];
+    int t, p = 0;
     char command;
     bool isBlock;
     memset(d, '-', sizeof d);
     scanf("%d", &t);
-    getchar();
     while (t--)
     {
+        getchar();
+        // cout << t << ':' << endl;
         for (int i = 1; i <= 8; i++)
         {
             for (int j = 1; j <= 8; j++)
@@ -81,10 +103,12 @@ int main()
                 for (int i = 1; i <= 8; i++)
                 {
                     for (int j = 1; j <= 8; j++)
-                        putchar(d[i][j]);
-                    putchar('\n');
+                        p += sprintf(out + p, "%c", d[i][j]);
+                    // fprintf(out, "%c", d[i][j]);
+                    // putchar(d[i][j]);
+                    p += sprintf(out + p, "\n");
+                    // putchar('\n');
                 }
-                putchar('\n');
                 break;
             }
             else if (command == 'L')
@@ -95,19 +119,30 @@ int main()
                         if (d[i][j] == '-' && isLegal(i, j))
                         {
                             if (isBlock)
-                                putchar(' ');
+                                p += sprintf(out + p, " ");
+                            // putchar(' ');
                             isBlock = true;
-                            printf("(%d,%d)", i, j);
+                            p += sprintf(out + p, "(%d,%d)", i, j);
                         }
                 if (!isBlock)
-                    printf("No legal move.");
-                putchar('\n');
+                    p += sprintf(out + p, "No legal move.");
+                p += sprintf(out + p, "\n");
+                // putchar('\n');
             }
             else if (command == 'M')
             {
-                
+                Move(getchar() - '0', getchar() - '0');
+                p += sprintf(out + p, "Black - %2d White - %2d\n", Count('B'), Count('W'));
+                now = (now == 'B' ? 'W' : 'B');
             }
+            getchar();
         }
+        if (t)
+            p += sprintf(out + p, "\n");
+            
+        // putchar('\n');
     }
+    // cout << out;
+    printf("%s", out);
     return 0;
 }
