@@ -1,39 +1,74 @@
-#include <algorithm>
 #include <iostream>
 #include <map>
 #include <string>
-#define MAXN 10001
-#define INF 0x3f3f3f3f
+#define MAXN 30
+#define INF 0x3f3f
+#define INF_8 0x3f
 using namespace std;
-// 求单源最短路径，时间复杂度为O(n *m)，时间复杂度高，最好换用SPFA方法
-// dis数组是表示源点到i点的距离，算法执行完成后保存答案
-// g为边的集合
-struct EDGE
-{
-    int a, b, w;
-};
-int n, m;
-int dis[MAXN];
-EDGE g[MAXN];
-bool BellmanFord()
+int g[MAXN][MAXN], pre[MAXN];
+int n;
+void Init_g()
 {
     for (int i = 1; i <= n; i++)
-        dis[i] = INF;
-    dis[1] = 0;
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++)
-            dis[g[j].b] = min(dis[g[j].b], dis[g[j].a] + g[j].w);
-    for (int i = 0; i < m; i++)
-        if (dis[g[i].b] > dis[g[i].a] + g[i].w)
-            return false;
-    return true;
+    {
+        g[i][i] = 1;
+        for (int j = i + 1; j <= n; j++)
+            g[i][j] = g[j][i] = 0;
+    }
+}
+void Floyd()
+{
+    for (int k = 1; k <= n; k++)
+        for (int i = 1; i <= n; i++)
+            for (int j = 1; j <= n; j++)
+                g[i][j] = g[i][j] || (g[i][k] && g[k][j]); // min(g[i][j], g[i][k] + g[k][j]);
 }
 int main()
 {
-    string tema, temb;
-    while (~scanf("%d%d", &n, &m) && (n || m))
+    int m, p, t = 1;
+    bool isArr[MAXN];
+    string a, b;
+    map<string, int> list;
+    map<int, string> relist;
+    while (~scanf("%d%d", &n, &m) && n && m)
     {
-        cin >> tema >> temb;
+        printf("Calling circles for data set %d:\n", t++);
+        for (int i = 0; i <= n; i++)
+            isArr[i] = false;
+        list.clear();
+        Init_g();
+        p = 1;
+        for (int i = 0; i < m; i++)
+        {
+            cin >> a >> b;
+            if (!list[a])
+            {
+                relist[p] = a;
+                list[a] = p++;
+            }
+            if (!list[b])
+            {
+                relist[p] = b;
+                list[b] = p++;
+            }
+            g[list[a]][list[b]] = 1;
+        }
+        Floyd();
+        for (int i = 1; i <= n; i++)
+            if (!isArr[i])
+            {
+                p = 0;
+                for (int j = 1; j <= n; j++)
+                    if (!isArr[j] && g[i][j] && g[j][i])
+                    {
+                        isArr[j] = true;
+                        if (p)
+                            printf(", ");
+                        cout << relist[j];
+                        p++;
+                    }
+                putchar('\n');
+            }
     }
     return 0;
 }
