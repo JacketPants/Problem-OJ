@@ -9,7 +9,7 @@ bool Judge()
     {
         for (int j = 1; j <= 9; j++)
         {
-            if (g[i][j] == 'R')
+            if (g[i][j] == 'R' || g[i][j] == 'G')
             {
                 for (int k = i + 1; k <= 10; k++)
                     if (g[k][j] == '.' || g[k][j] == 'x')
@@ -86,14 +86,14 @@ bool Judge()
                         break;
                     }
             }
-            else if (g[i][j] == 'G')
-            {
-                for (int k = i - 1; k; k--)
-                    if (g[k][j] == '.' || g[k][j] == 'x')
-                        g[k][j] = 'x';
-                    else
-                        break;
-            }
+            // else if (g[i][j] == 'G')
+            // {
+            //     for (int k = i - 1; k; k--)
+            //         if (g[k][j] == '.' || g[k][j] == 'x')
+            //             g[k][j] = 'x';
+            //         else
+            //             break;
+            // }
         }
     }
     if (g[a][b] == 'x')
@@ -107,27 +107,19 @@ int main()
     bool ans;
     char ch;
     memset(g, 'x', sizeof g);
-    while (~scanf("%d%d%d", &n, &a, &b) && (n || a || b))
+    while (cin >> n >> a >> b && (n || a || b)) //(~scanf("%d%d%d", &n, &a, &b) && (n || a || b))
     {
-        ans = false;
+        z = ans = false;
         memset(t, '.', sizeof t);
         for (int i = 0; i < n; i++)
         {
-            getchar();
-            scanf("%c%d%d", &ch, &x, &y);
+            cin >> ch >> x >> y;
             t[x][y] = ch;
             if (ch == 'G')
                 z = y;
         }
-        // for (int i = 1; i <= 10; i++)
-        // {
-        //     for (int j = 1; j <= 9; j++)
-        //         putchar(g[i][j]);
-        //     putchar('\n');
-        // }
-        if (!ans)
+        if (z && !ans)
         {
-
             if (b == z)
             {
                 ans = true;
