@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-char g[12][12], t[12][12];
+char g[15][15], t[15][15];
 int a, b;
 bool Judge()
 {
@@ -34,13 +34,13 @@ bool Judge()
             }
             else if (g[i][j] == 'H')
             {
-                if (g[i + 1][j] == '.' || g[i + 1][j] == 'x')
+                if (i < 9 && (g[i + 1][j] == '.' || g[i + 1][j] == 'x'))
                     g[i + 2][j + 1] = g[i + 2][j - 1] = 'x';
-                if (g[i - 1][j] == '.' || g[i - 1][j] == 'x')
+                if (i > 2 && (g[i - 1][j] == '.' || g[i - 1][j] == 'x'))
                     g[i - 2][j + 1] = g[i - 2][j - 1] = 'x';
-                if (g[i][j + 1] == '.' || g[i][j + 1] == 'x')
+                if (j < 9 && (g[i][j + 1] == '.' || g[i][j + 1] == 'x'))
                     g[i + 1][j + 2] = g[i - 1][j + 2] = 'x';
-                if (g[i][j - 1] == '.' || g[i][j - 1] == 'x')
+                if (j > 2 && (g[i][j - 1] == '.' || g[i][j - 1] == 'x'))
                     g[i + 1][j - 2] = g[i - 1][j - 2] = 'x';
             }
             else if (g[i][j] == 'C')
@@ -86,14 +86,6 @@ bool Judge()
                         break;
                     }
             }
-            // else if (g[i][j] == 'G')
-            // {
-            //     for (int k = i - 1; k; k--)
-            //         if (g[k][j] == '.' || g[k][j] == 'x')
-            //             g[k][j] = 'x';
-            //         else
-            //             break;
-            // }
         }
     }
     if (g[a][b] == 'x')
@@ -106,8 +98,7 @@ int main()
     int n, x, y, z;
     bool ans;
     char ch;
-    memset(g, 'x', sizeof g);
-    while (cin >> n >> a >> b && (n || a || b)) //(~scanf("%d%d%d", &n, &a, &b) && (n || a || b))
+    while (cin >> n >> a >> b && (n || a || b))
     {
         z = ans = false;
         memset(t, '.', sizeof t);
@@ -124,7 +115,7 @@ int main()
             {
                 ans = true;
                 for (int i = a; i <= 10; i++)
-                    if (t[i][z] != 'G' || t[i][z] != '.')
+                    if (!(t[i][z] != 'G' || t[i][z] != '.'))
                     {
                         ans = false;
                         break;
@@ -133,52 +124,52 @@ int main()
         }
         if (!ans && a < 3)
         {
+            memset(g, 'x', sizeof g);
             a++;
             for (int i = 1; i <= 10; i++)
                 for (int j = 1; j <= 9; j++)
                     g[i][j] = t[i][j];
             g[a][b] = '.';
             ans = Judge();
-            // cout << ans;
             a--;
         }
         if (!ans && a > 1)
         {
+            memset(g, 'x', sizeof g);
             a--;
             for (int i = 1; i <= 10; i++)
                 for (int j = 1; j <= 9; j++)
                     g[i][j] = t[i][j];
             g[a][b] = '.';
             ans = Judge();
-            // cout << ans;
             a++;
         }
         if (!ans && b < 6)
         {
+            memset(g, 'x', sizeof g);
             b++;
             for (int i = 1; i <= 10; i++)
                 for (int j = 1; j <= 9; j++)
                     g[i][j] = t[i][j];
             g[a][b] = '.';
             ans = Judge();
-            // cout << ans;
             b--;
         }
         if (!ans && b > 4)
         {
+            memset(g, 'x', sizeof g);
             b--;
             for (int i = 1; i <= 10; i++)
                 for (int j = 1; j <= 9; j++)
                     g[i][j] = t[i][j];
             g[a][b] = '.';
             ans = Judge();
-            // cout << ans;
             b++;
         }
         if (ans)
-            puts("NO");
+            cout << "NO" << endl;
         else
-            puts("YES");
+            cout << "YES" << endl;
     }
     return 0;
 }
