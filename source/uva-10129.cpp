@@ -4,12 +4,14 @@
 using namespace std;
 int t, n;
 vector<string> list;
-bool dfs(int cnt,char m)
+bool dfs(int cnt, char m)
 {
-    if(cnt==n)
+    if (cnt == n)
         return true;
-    // for (int i = 0; i < list.size();i++)
-
+    for (int i = 0; i < list.size(); i++)
+    {
+        
+    }
 }
 int main()
 {
@@ -24,7 +26,7 @@ int main()
             cin >> tem;
             list.push_back(tem);
         }
-        if (dfs(0,0))
+        if (dfs(0, 0))
             puts("Ordering is possible.");
         else
             puts("The door cannot be opened.");
