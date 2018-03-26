@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstring>
 #include <iostream>
 using namespace std;
@@ -9,7 +10,6 @@ int main()
     cin >> t;
     for (int k = 1; k <= t; k++)
     {
-        memset(p, 0, sizeof p);
         memset(dp, 0, sizeof dp);
         scanf("%d%d", &n, &m);
         for (int i = 0; i < n; i++)
