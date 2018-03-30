@@ -1,79 +1,52 @@
-#include<iostream>
-#include<string>
-#include<cstring>
-#include<map>
-#include<cstdio>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <vector>
 using namespace std;
-struct kv
+vector<int> g[1001];
+int from[1001], n;
+bool use[1001];
+bool Match(int x)
 {
-    int k;
-    int v;
-    kv(int a,int b){
-        k=a;v=b;
+    for (int i = 0; i < g[x].size(); i++)
+    {
+        if (!use[g[x][i]])
+        {
+            use[g[x][i]] = true;
+            if (from[g[x][i]] == -1 || Match(from[g[x][i]]))
+            {
+                from[g[x][i]] = x;
+                return true;
+            }
+        }
     }
-};
-bool operator < (const kv& a,const kv& b){
-    if(a.k<b.k)return 1;
-    if(a.k>b.k)return 0;
-
-    return a.v<b.v;
+    return false;
+}
+int Hungary()
+{
+    int ans = 0;
+    memset(from, 255, sizeof from);
+    for (int i = 1; i <= n; i++)
+    {
+        memset(use, 0, sizeof use);
+        if (Match(i))
+            ans++;
+    }
+    return ans;
 }
 int main()
 {
-    //ios::sync_with_stdio(false);
-
-    int m,n;
-    while(cin>>n>>m){
-        getchar();
-        char line[100];
-        string s[10020][11];
-        int a[n][m];
-        map<string,int> con;
-        int num=1;
-
-        for(int i=0;i<n;i++){
-            gets(line);
-            int c=0;
-            int len=strlen(line);
-            for(int j=0;j<len;j++){
-                if(line[j]==','){
-                    c++;
-                    if(!con.count(s[i][c-1])){
-                        con[s[i][c-1]]=num++;
-                        a[i][c-1]=num-1;
-                    }
-                    else a[i][c-1]=con[s[i][c-1]];
-                }
-                else s[i][c].push_back(line[j]);
-            }
-            if(!con.count(s[i][c])){
-                con[s[i][c]]=num++;
-                a[i][c]=num-1;
-            }
-            else a[i][c]=con[s[i][c]];
+    int k, x, y;
+    while (~scanf("%d%d", &n, &k))
+    {
+        for (int i = 1; i <= n; i++)
+            g[i].clear();
+        for (int i = 0; i < k; i++)
+        {
+            scanf("%d%d", &x, &y);
+            g[x].push_back(y);
         }
-
-        int sign=0;
-        for(int c1=0;c1<m;c1++){
-            for(int c2=c1+1;c2<m;c2++){
-                map<kv,int> database;
-                for(int i=0;i<n;i++){
-                    kv k(a[i][c1],a[i][c2]);
-                    if(database.count(k)){
-                        sign=1;
-                        cout<<"NO"<<endl;
-                        cout<<database[k]<<" "<<i+1<<endl;
-                        cout<<c1+1<<" "<<c2+1<<endl;
-                        goto ssss;
-                    }
-                    else {
-                        database[k]=i+1;
-                    }
-                }
-            }
-        }
-        ssss:;
-        if(sign==0)cout<<"YES"<<endl;
+        printf("%d\n", Hungary());
     }
     return 0;
 }
