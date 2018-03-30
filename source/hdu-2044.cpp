@@ -11,7 +11,7 @@ int main()
     while (t--)
     {
         scanf("%d%d", &a, &b);
-        cout << ans[a - b] << endl;
+        cout << ans[b - a] << endl;
     }
     return 0;
 }
