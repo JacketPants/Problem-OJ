@@ -1,58 +1,76 @@
+#include <algorithm>
+#include <cstring>
 #include <iostream>
 #include <map>
 #include <string>
 using namespace std;
-int db[10001][11];
 struct G
 {
     int a, b;
-    bool operator<(const G& x)
+    bool operator<(const G &x) const
     {
         if (a == x.a)
             return b < x.b;
-        return a < x.a;
+        return a < x.b;
     }
 };
+int db[10010][12];
+map<string, int> to;
 int main()
 {
-    int n, m, cnt;
+    int n, m, p, tp = 0;
     G tem;
     string s;
-    map<string, int> t;
-    while (~scanf("%d%d", &n, &m))
+    char ch, out[10000];
+    bool isYES;
+    while (cin >> n >> m)
     {
-        t.clear();
-        cnt = 1;
+        to.clear();
+        isYES = p = 1;
+        getchar();
         for (int i = 1; i <= n; i++)
-            for (int j = 1; j <= m; j++)
+            for (int j = 1; j <= m;)
             {
-                cin >> s;
-                if (!t[s])
-                    t[s] = cnt++;
-                db[i][j] = t[s];
+                ch = getchar();
+                if (ch == ',')
+                {
+                    if (!to[s])
+                        to[s] = p++;
+                    db[i][j++] = to[s];
+                    s.clear();
+                    continue;
+                }
+                else if (ch == '\n')
+                {
+                    if (!to[s])
+                        to[s] = p++;
+                    db[i][j++] = to[s];
+                    s.clear();
+                    break;
+                }
+                s.push_back(ch);
             }
         for (int i = 1; i <= m; i++)
-        {
-            for (int j = 1; j <= m; j++)
+            for (int j = i + 1; j <= m; j++)
             {
                 map<G, int> list;
                 for (int k = 1; k <= n; k++)
                 {
                     tem.a = db[k][i];
                     tem.b = db[k][j];
-                    if (list[tem])
+                    if (list.count(tem))
                     {
-                        printf("%d %d\n%d %d", list[tem], k, i, j);
-                        // goto out;
+                        tp += sprintf(out + tp, "NO\n%d %d\n%d %d\n", list[tem], k, i, j);
+                        isYES = false;
+                        goto out;
                     }
-                    else
-                    {
-                        list[tem] = k;
-                    }
+                    list[tem] = k;
                 }
             }
-        }
-        // out:;
+    out:
+        if (isYES)
+            tp += sprintf(out + tp, "YES\n");
     }
+    printf(out);
     return 0;
 }
