@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <cstring>
 #include <iostream>
 using namespace std;
@@ -13,19 +14,19 @@ bool Check(int a, int b)
             return false;
     return true;
 }
-int dfs(int x)
+int dfs(int x, int a, int b)
 {
     if (x == m)
         return 1;
     int ans = 0;
-    for (int i = 1; i <= n; i++)
+    for (int i = a; i <= n; i++)
     {
-        for (int j = 1; j <= n; j++)
+        for (int j = (i == a ? b : 1); j <= n; j++)
         {
             if (p[i][j] == '#' && Check(i, j))
             {
                 p[i][j] = '*';
-                ans += dfs(x + 1);
+                ans += dfs(x + 1, i, j + 1);
                 p[i][j] = '#';
             }
         }
@@ -43,7 +44,7 @@ int main()
             for (int j = 1; j <= n; j++)
                 p[i][j] = getchar();
         }
-        printf("%d\n", dfs(0));
+        printf("%d\n", dfs(0, 1, 1));
     }
     return 0;
 }
