@@ -5,18 +5,18 @@ using namespace std;
 struct V
 {
     int x, y, z;
-    // bool operator<(const V &x)
-    // {
-    //     if (this->x == x.x)
-    //         return this->y < x.y;
-    //     return this->x < x.x;
-    // }
+    bool operator<(const V &x) const
+    {
+        if (this->x == x.x)
+            return this->y < x.y;
+        return this->x < x.x;
+    }
 };
 V list[100];
-int dp[100];
+
 int main()
 {
-    int n, m, a, b, c, t = 1;
+    int dp[100], n, m, a, b, c, t = 1;
     while (~scanf("%d", &n))
     {
         m = 0;
@@ -33,16 +33,14 @@ int main()
             list[m].y = a;
             list[m++].z = b;
         }
-        // sort(list, list + m);
+        sort(list, list + m);
         for (int i = 0; i < m; i++)
             dp[i] = list[i].z;
         for (int i = 0; i < m; i++)
-        {
             for (int j = 0; j < m; j++)
                 if (list[j].x < list[i].x && list[j].y < list[i].y)
                     dp[i] = max(dp[i], dp[j] + list[i].z);
-        }
-        printf("Case %d: maximum height = %d", t++, *max_element(dp, dp + m));
+        printf("Case %d: maximum height = %d\n", t++, *max_element(dp, dp + m));
     }
     return 0;
 }
