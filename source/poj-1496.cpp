@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <cstring>
 #include <iostream>
 #include <string>
@@ -18,15 +19,25 @@ int main()
 {
     Init();
     string s;
+    int ans;
+    bool flag;
     while (cin >> s)
     {
-        bool flag = false;
+        ans = flag = false;
         for (int i = 1; i < s.length() && !flag; i++)
             if (s[i] <= s[i - 1])
                 flag = true;
         if (!flag)
         {
+            for (int i = 1; i < s.length(); i++)
+                ans += st[26][i];
+            for (int i = 0; i < s.length(); i++)
+                for (char j = (!i) ? 'a' : s[i - 1] + 1; j < s[i]; j++)
+                    ans += st['z' - j][s.length() - i - 1];
+            printf("%d\n", ans + 1);
         }
+        else
+            printf("%d\n", ans);
     }
     return 0;
 }
