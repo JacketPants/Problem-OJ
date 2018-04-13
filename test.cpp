@@ -6,12 +6,16 @@ using namespace std;
 int main()
 {
     char ch;
+    int n = 1024;
     FILE *fp = fopen("testtxt", "w");
     srand((unsigned int)time(NULL));
-    for (int i = 1; i <= 1024; i++)
+    for (int i = 1; i <= n; i++)
     {
         if (!(i % 16))
+        {
             fputc('\n', fp);
+            n--;
+        }
         else
         {
             ch = rand() % 62;
