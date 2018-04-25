@@ -1,33 +1,34 @@
-#include <cmath>
-#include <cstdlib>
-#include <iostream>
-#include <time.h>
-using namespace std;
-int main()
-{
-    char ch;
-    int n = 1024;
-    FILE *fp = fopen("testtxt", "w");
-    srand((unsigned int)time(NULL));
-    for (int i = 1; i <= n; i++)
-    {
-        if (!(i % 16))
-        {
-            fputc('\n', fp);
-            n--;
-        }
-        else
-        {
-            ch = rand() % 62;
-            if (ch < 10)
-                ch += '0';
-            else if (ch < 36)
-                ch += 'a' - 10;
-            else
-                ch += 'A' - 36;
-            fputc(ch, fp);
-        }
-    }
-    fclose(fp);
-    return 0;
-}
+#include<bits/stdc++.h>  
+using namespace std;  
+#define ll long long  
+const int maxn=200005;  
+const ll mod=10000007;  
+vector<int>G[maxn];  
+ll a[maxn],ans=0;  
+bool vis[maxn];  
+void dfs(int s)  
+{  
+    ll k=1;vis[s]=1;  
+    for(int i=0;i<G[s].size();i++)  
+    {  
+        int to=G[s][i];  
+        if(vis[to])continue;  
+        dfs(to);  
+        k=k*(a[to]+1)%mod;  
+    }  
+    a[s]=k%mod;  
+}  
+int main()  
+{  
+    int n;scanf("%d",&n);  
+    for(int i=1;i<n;i++)  
+    {  
+        int x,y;scanf("%d%d",&x,&y);  
+        G[x].push_back(y);  
+        G[y].push_back(x);  
+    }  
+    dfs(1);  
+    for(int i=1;i<=n;i++)ans=(ans+a[i])%mod;  
+    printf("%lld\n",ans);  
+    return 0;  
+}  
