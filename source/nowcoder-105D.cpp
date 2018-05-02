@@ -20,13 +20,11 @@ int main()
         memset(b, 0, sizeof b);
         scanf("%d", &n);
         for (p = 44; p && n; p--)
-        {
             if (n >= fib[p])
             {
                 n -= fib[p];
                 b[p] = true;
             }
-        }
         for (bool isChange = true; isChange;)
         {
             isChange = false;
