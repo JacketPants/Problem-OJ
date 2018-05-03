@@ -45,8 +45,8 @@ int main()
                 p[i][j] = getchar();
                 if (p[i][j] == 'S')
                 {
-                    a = i;
-                    b = j;
+                    q.push(Step(i, j, 0));
+                    vis[i][j] = 0;
                 }
             }
         }
@@ -56,8 +56,6 @@ int main()
             if (p[c + 1][d + 1] != '#' && p[e + 1][f + 1] != '#')
                 tp[c + 1][d + 1].push_back(Step(e + 1, f + 1, 0));
         }
-        q.push(Step(a, b, 0));
-        vis[a][b] = 0;
         while (!q.empty())
         {
             ans = q.top();
@@ -72,19 +70,14 @@ int main()
             for (int i = 0; i < tp[x][y].size(); i++)
                 if (ans.n + 3 < vis[tp[x][y][i].x][tp[x][y][i].y])
                 {
-                    tem = tp[x][y][i];
-                    tem.n = ans.n + 3;
-                    vis[tem.x][tem.y] = tem.n;
-                    q.push(tem);
+                    vis[tp[x][y][i].x][tp[x][y][i].y] = ans.n + 3;
+                    q.push(Step(tp[x][y][i].x, tp[x][y][i].y, ans.n + 3));
                 }
             for (int i = 0; i < 4; i++)
                 if (ans.n + 1 < vis[x + mp[i][0]][y + mp[i][1]] && p[x + mp[i][0]][y + mp[i][1]] != '#')
                 {
-                    tem.x = x + mp[i][0];
-                    tem.y = y + mp[i][1];
-                    tem.n = ans.n + 1;
-                    vis[tem.x][tem.y] = tem.n;
-                    q.push(tem);
+                    vis[x + mp[i][0]][y + mp[i][1]] = ans.n + 1;
+                    q.push(Step(x + mp[i][0],y + mp[i][1],ans.n + 1));
                 }
         }
         if (isFind)
