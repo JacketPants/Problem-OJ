@@ -67,17 +67,17 @@ int main()
                 isFind = true;
                 break;
             }
+            for (int i = 0; i < 4; i++)
+                if (ans.n + 1 < vis[x + mp[i][0]][y + mp[i][1]] && p[x + mp[i][0]][y + mp[i][1]] != '#')
+                {
+                    vis[x + mp[i][0]][y + mp[i][1]] = ans.n + 1;
+                    q.push(Step(x + mp[i][0], y + mp[i][1], ans.n + 1));
+                }
             for (int i = 0; i < tp[x][y].size(); i++)
                 if (ans.n + 3 < vis[tp[x][y][i].x][tp[x][y][i].y])
                 {
                     vis[tp[x][y][i].x][tp[x][y][i].y] = ans.n + 3;
                     q.push(Step(tp[x][y][i].x, tp[x][y][i].y, ans.n + 3));
-                }
-            for (int i = 0; i < 4; i++)
-                if (ans.n + 1 < vis[x + mp[i][0]][y + mp[i][1]] && p[x + mp[i][0]][y + mp[i][1]] != '#')
-                {
-                    vis[x + mp[i][0]][y + mp[i][1]] = ans.n + 1;
-                    q.push(Step(x + mp[i][0],y + mp[i][1],ans.n + 1));
                 }
         }
         if (isFind)
