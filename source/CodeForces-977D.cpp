@@ -32,7 +32,6 @@ int main()
                 g[i].push_back(j);
             else if (list[i] * 3LL == list[j])
                 g[j].push_back(i);
-            
     for (int i = 0; i < n; i++)
         if (dfs(i))
             break;
