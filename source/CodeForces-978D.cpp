@@ -18,7 +18,6 @@ int main()
     }
     if (!(sum % m == 0 || (sum + 1) % m == 0 || (sum - 1) % m == 0))
         puts("-1");
-
     else
     {
 
