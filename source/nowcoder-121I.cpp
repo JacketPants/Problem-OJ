@@ -6,13 +6,6 @@ using namespace std;
 int list[1000];
 int maxn = 0, n;
 map<int, int> cnt;
-// int FindLast(int n)
-// {
-//     for (int i = n - 1; i >= 0; i--)
-//         if (list[i] == n)
-//             return i;
-//     return -1;
-// }
 int FindLast(int n)
 {
     for (int i = 0; i < n; i++)
@@ -25,50 +18,40 @@ int main()
     bool flag = false;
     priority_queue<int> q;
     cin >> n;
-    if (n)
+    for (int i = 0; i < n; i++)
     {
-        for (int i = 0; i < n; i++)
+        scanf("%d", list + i);
+        if (!cnt[list[i]])
+            q.push(list[i]);
+        cnt[list[i]]++;
+    }
+    int len = q.size();
+    int a, b, c, d, ans = 0;
+    for (int i = 1; i < len; i++)
+    {
+        d = 0;
+        a = q.top();
+        q.pop();
+        b = q.top();
+        c = FindLast(a);
+        for (int j = c + 1; j < n; j++)
+            if (list[j] == b)
+                d++;
+        if (d)
         {
-            scanf("%d", list + i);
-            if (!cnt[list[i]])
-                q.push(list[i]);
-            cnt[list[i]]++;
-        }
-        int len = q.size();
-        int a, b, c, d, ans = 0;
-        for (int i = 1; i < len; i++)
-        {
-            d = 0;
-            a = q.top();
+            flag = true;
+            ans += d;
             q.pop();
-            b = q.top();
-            c = FindLast(a);
-            // cout << c << endl;
-            for (int j = c + 1; j < n; j++)
-                if (list[j] == b)
-                    d++;
-            if (d)
-            {
-                flag = true;
-                ans += d;
-                q.pop();
-                break;
-            }
+            break;
         }
-        if (flag)
-            // q.pop();
-            while (!q.empty())
-            {
-                ans += cnt[q.top()];
-                q.pop();
-            }
-        cout << ans << endl;
     }
-    else
-    {
-        cout << 0 << endl;
-    }
-
+    if (flag)
+        while (!q.empty())
+        {
+            ans += cnt[q.top()];
+            q.pop();
+        }
+    cout << ans << endl;
     return 0;
 }
 /*
