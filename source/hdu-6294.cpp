@@ -26,7 +26,7 @@ int main()
                 cout << '<';
             else
                 cout << '>';
-        cout << '\n';
+        cout << endl;
     }
     return 0;
 }
