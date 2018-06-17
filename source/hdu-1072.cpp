@@ -44,7 +44,7 @@ int main()
                 if (g[i][j] == 2)
                 {
                     vis[i][j][6] = true;
-                    q.push(P(i, j, 6, 0));
+                    q.push(P(i, j));
                 }
         while (!q.empty())
         {
