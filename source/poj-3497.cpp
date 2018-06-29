@@ -10,6 +10,7 @@ int main()
     while (t--)
     {
         scanf("%d%lld", &n, &b);
+        
     }
     return 0;
 }
