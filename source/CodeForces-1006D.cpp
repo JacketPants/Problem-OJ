@@ -27,7 +27,7 @@ int main()
     {
         scanf("%d%d", &a, &b);
         c = 0;
-        ans=-1;
+        ans = -1;
         dfs(a);
         printf("%d\n", ans);
     }
