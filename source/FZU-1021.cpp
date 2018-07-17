@@ -1,6 +1,8 @@
 #include<iostream>
 #include<cstring>
 
+using namespace std;
+
 int main()
 {
 	int n,a,b,v[100],ans;
