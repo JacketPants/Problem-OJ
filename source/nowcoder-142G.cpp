@@ -37,7 +37,8 @@ int main()
         }
         for (set<int>::reverse_iterator i = s.rbegin(); i != s.rend(); i++)
         {
-            cout << *i << endl;
+            
+//            cout << *i << endl;
         }
     }
     return 0;
