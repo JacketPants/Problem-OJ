@@ -7,10 +7,10 @@ using namespace std;
 
 struct Edge
 {
-    int to, next;
-    int index;
-    int dir;
-    bool flag;
+    int to, next; //to 指向的点，next下一条边
+    int index; //序号
+    int dir; //方向
+    bool flag; //vis
 } edge[220];
 int head[10], tot;
 void init()
@@ -35,6 +35,7 @@ void addedge(int u, int v, int index)
 }
 int du[10];
 vector<int> ans;
+//用于搜索从u出发的欧拉路
 void dfs(int u)
 {
     for (int i = head[u]; i != -1; i = edge[i].next)
