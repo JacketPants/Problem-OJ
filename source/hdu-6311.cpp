@@ -61,8 +61,8 @@ void dfs(int u)
 }
 int main()
 {
-    freopen("1003.in", "r", stdin);
-    freopen("out", "w", stdout);
+    // freopen("1003.in", "r", stdin);
+    // freopen("out", "w", stdout);
 
     int n, m;
     while (cin >> n >> m)
