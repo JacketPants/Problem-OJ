@@ -76,8 +76,6 @@ int n;
 long long treeA[MAXN], treeB[MAXN];
 inline void add(long long *Tree, int x, int value)
 {
-    // for (int i = x; i <= n; i += lowbit(i))
-    //     Tree[i] += value;
     while (x <= n)
     {
         Tree[x] += value;
@@ -93,8 +91,6 @@ inline long long get(long long *Tree, int x)
         sum += Tree[x];
         x -= lowbit(x);
     }
-    // for (int i = x; i; i -= lowbit(i))
-    //     sum += Tree[i];
     return sum;
 }
 
