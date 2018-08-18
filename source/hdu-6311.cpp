@@ -8,7 +8,7 @@
 
 // struct Edge
 // {
-//     int to, next;
+//     int to, Next;
 //     int index;
 //     int dir;
 //     bool flag;
@@ -36,13 +36,13 @@
 // void addedge(int u, int v, int index)
 // {
 //     edge[tot].to = v;
-//     edge[tot].next = head[u];
+//     edge[tot].Next = head[u];
 //     edge[tot].index = index;
 //     edge[tot].dir = 0;
 //     edge[tot].flag = false;
 //     head[u] = tot++;
 //     edge[tot].to = u;
-//     edge[tot].next = head[v];
+//     edge[tot].Next = head[v];
 //     edge[tot].index = index;
 //     edge[tot].dir = 1;
 //     edge[tot].flag = false;
@@ -50,7 +50,7 @@
 // }
 // void dfs(int u)
 // {
-//     for (int i = head[u]; i != -1; i = edge[i].next)
+//     for (int i = head[u]; i != -1; i = edge[i].Next)
 //         if (!edge[i].flag)
 //         {
 //             edge[i].flag = true;
@@ -182,12 +182,11 @@
 #include <vector>
 using namespace std;
 
-#define next VIVONEX
 #define clr(_) memset(_, 0, sizeof(_))
 
 const int N = 100005, M = 500005;
 
-int n, m, G[N], tot, e[M], next[M], deg[N], top, stk[M], vis[M], fa[N], sum;
+int n, m, G[N], tot, e[M], Next[M], deg[N], top, stk[M], vis[M], fa[N], sum;
 vector<int> ji[N], ans[N];
 
 int getfa(int u)
@@ -197,15 +196,14 @@ int getfa(int u)
 
 inline void adde(int u, int v)
 {
-    //    cout<<u<<" "<<v<<endl;
-    next[++tot] = G[u];
+    Next[++tot] = G[u];
     G[u] = tot;
     e[tot] = v;
 }
 
 void dfs(int u)
 {
-    for (int &v = G[u]; v; v = next[v])
+    for (int &v = G[u]; v; v = Next[v])
     {
         if (vis[v >> 1])
             continue;
@@ -218,9 +216,10 @@ void dfs(int u)
 
 void init()
 {
-    clr(G);
-    clr(deg);
-    clr(vis);
+    memset(G, 0, sizeof G);
+    memset(deg, 0, sizeof deg);
+    memset(vis, 0, sizeof vis);
+
     tot = 1;
     for (int i = 1; i <= n; i++)
         ji[i].clear(), ans[i].clear(), fa[i] = i;

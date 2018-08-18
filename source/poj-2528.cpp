@@ -1,4 +1,9 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <set>
+#include <vector>
 #define INF 0x3f3f3f
 #define MAXN 100010
 using namespace std;
@@ -9,7 +14,7 @@ struct Node
 
 set<int> ans;
 vector<int> mylist;
-vector<pair<int, int>> query;
+vector<pair<int, int> > query;
 int mp[10000001];
 Node t[MAXN * 4];
 
@@ -95,13 +100,30 @@ int main()
                 sum++;
             mp[mylist[i]] = sum++;
         }
+        sum--;
         Bulid(t, 0, 0, sum);
         for (int i = 0; i < query.size(); i++)
         {
-            Updata(t, 0, 0, sum, query[i].first, query[i].second, i);
+            Updata(t, 0, 0, sum, mp[query[i].first], mp[query[i].second], i);
         }
         Query(t, 0, 0, sum, 0, sum);
         printf("%d\n", ans.size());
     }
     return 0;
 }
+
+/*
+100
+5
+1 4
+2 6
+8 10
+3 4
+7 10
+5
+1 10000000
+100 10000000
+2 1234
+34 9999999
+1 99
+*/
