@@ -182,8 +182,6 @@
 #include <vector>
 using namespace std;
 
-#define clr(_) memset(_, 0, sizeof(_))
-
 const int N = 100005, M = 500005;
 
 int n, m, G[N], tot, e[M], Next[M], deg[N], top, stk[M], vis[M], fa[N], sum;
