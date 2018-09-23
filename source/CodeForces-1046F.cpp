@@ -5,25 +5,15 @@ using namespace std;
 int list[200005];
 int main()
 {
-    int n, x, f, cnt = 0;
+    int n, x, f;
     long long fee = 0;
     cin >> n;
     for (int i = 0; i < n; i++)
         scanf("%d", list + i);
     scanf("%d%d", &x, &f);
     for (int i = 0; i < n; i++)
-    {
-        // if (list[i] > x && list[i] < x * 2 + f)
-        //     fee += f;
-        // else
         if (list[i] > x)
             fee += ceil((double)(list[i] - x) / (x + f)) * f;
-        // while (list[i] > x)
-        // {
-        //     list[i] -= min(x, list[i] - x) + f;
-        //     fee += f;
-        // }
-    }
     cout << fee << endl;
     return 0;
 }

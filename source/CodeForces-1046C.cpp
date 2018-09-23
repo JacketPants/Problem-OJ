@@ -2,7 +2,6 @@
 
 using namespace std;
 int s[200020], p[200020];
-bool vis[200020];
 int main()
 {
     int n, d, sc, P, Q, ans = 1;
@@ -14,7 +13,7 @@ int main()
         for (int i = 0; i < n; i++)
             scanf("%d", p + i);
         sc = s[d] + p[0];
-        ans = P = vis[0] = true;
+        ans = P = true;
         Q = n - 1;
         for (int i = 0; i < n; i++)
         {
@@ -22,11 +21,11 @@ int main()
                 continue;
             if (s[i] + p[Q] <= sc)
             {
-                vis[Q--] = true;
+                Q--;
             }
             else
             {
-                vis[P++] = true;
+                P++;
                 ans++;
             }
         }
