@@ -12,10 +12,8 @@ int main()
         scanf("%lld%lld%lld",&a,&b,&x);
         l=a/x;
         r=b/x;
-        if(a>0&&a%x)
+        if(a%x)
             l++;
-        if(b<0&&b%x)
-            r--;
         printf("%lld\n",r-l+1); 
     }
     return 0;
