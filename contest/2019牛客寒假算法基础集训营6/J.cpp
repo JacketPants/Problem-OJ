@@ -34,7 +34,7 @@ int main()
 	while(!q.empty())
 	{
 		now=q.front();q.pop();
-		cout<<now.x<<' '<<now.y<<endl;
+//		cout<<now.x<<' '<<now.y<<endl;
 		ans++;
 		if(now.cx && p[now.x][now.y-1]!='*' && !vis[now.x][now.y-1])
 		{
