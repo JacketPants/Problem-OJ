@@ -1,45 +1,53 @@
 #include<iostream>
-#include<map>
-#include<memset>
+#include<set>
+#include<vector>
+#include<cstring>
+#include<algorithm>
 #define INF_8 0x3f
 #define INF_16 0x3f3f
 #define INF_32 0x3f3f3f3f
 using namespace std;
-map<int,int> mp;
-int rmp[50];
-int p[50][50];
+set<int> s;
+set<pair<int,int>> path;
+vector<int> mp;
+int p[50];
 int main()
 {
 	memset(p,INF_8,sizeof p);
-	int n,k,u,v,cnt=0,from=0,to;
+	int n,k,u,v;
 	scanf("%d%d",&n,&k);
-	for(int i=1;i<=n;i<<1)
-	{
-		if(cnt)
-			p[cnt-1][cnt]=1;
-		rmp[cnt]=i;
-		mp[i]=cnt++;
-	}
-	if(!(to=mp[n]))
-	{
-		rmp[cnt]=n;
-		mp[n]=cnt;
-		to=cnt++;
-		p[cnt-1][cnt]=n-rmp[cnt-1]-1;	
-	}
+	s.emplace(1);
+	mp.emplace_back(1);
+	s.emplace(n);
+	mp.emplace_back(n);
 	for(int i=0;i<k;i++)
 	{
 		scanf("%d%d",&u,&v);
-		if(!mp[u])
+		if(u>v)
+			swap(u,v);
+		path.emplace(pair<int,int>(u,v));
+		if(!s.count(u))
 		{
-			rmp[cnt]=u;
-			mp[u]=cnt++;
+			s.emplace(u);
+			mp.emplace_back(u); 
 		}
-		if(!mp[v])
+		if(!s.count(v))
 		{
-			rmp[cnt]=v;
-			mp[v]=cnt++;
+			s.emplace(v);
+			mp.emplace_back(v); 
 		}
 	}
+	sort(mp.begin(),mp.end());
+	p[0]=0;
+	for(int i=0;i<mp.size();i++)
+	{
+		for(int j=i+1;j<mp.size();j++)
+		{
+			if(path.count(pair<int,int>(mp[i],mp[j])))
+				p[j]=min(p[i]+1,p[j]);
+			p[j]=min(p[i]+__builtin_popcount(mp[j]-mp[i]),p[j]);
+		}
+	}
+	cout<<p[s.size()-1]<<endl;
 	return 0;
 }
