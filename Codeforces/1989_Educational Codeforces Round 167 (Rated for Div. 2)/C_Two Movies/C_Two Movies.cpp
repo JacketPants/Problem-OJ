@@ -160,20 +160,55 @@ void cal() {
 
 void solve() {
     int n,a[20005],b[20005];
-    ll suma=0,sumb=0;
+    ll suma=0,sumb=0,cntn=0,cnt=0;
+    // int cnt[3][3]; // (-1,-1) (-1,0) (-1,1) (0,-1) (0,0) (0,1) (1,-1) (1,0) (1,1)
+    // memset(cnt,0,sizeof(cnt));
     read(n);
     read(a,n);
     read(b,n);
+    // for (int i=0;i<n;i++) {
+    //     cnt[a[i]+1][b[i]+1]++;
+    // }
     for (int i=0;i<n;i++) {
-        ll selecta = suma+a[i];
-        ll selectb = sumb+b[i];
-        if (min(selecta,sumb)>min(selectb,suma)) {
-            suma+=a[i];
+        if(a[i]==-1&&b[i]==-1) {
+            cntn++;
+        } if (a[i]==1 && b[i]==1) {
+            cnt++;
         } else {
-            sumb+=b[i];
+            if (a[i]>b[i]) {
+                suma+=a[i];
+            } else {
+                sumb+=b[i];
+            }
         }
     }
-    out(min(suma,sumb));
+    if (suma < sumb) {
+        swap(suma,sumb);
+    }
+    ll disCnt=cnt-cntn,disSum=suma-sumb,ans;
+
+    if (disSum>=(cnt+cntn)) {
+        ans = sumb+cnt;
+    } else {
+        ll temp = sumb+cnt;
+        ll 
+    } 
+
+    // if (abs(disSum) >= abs(disCnt)) {
+    //     if (disCnt>=0) {
+    //         ans=min(suma,sumb)+disCnt;
+    //     } else {
+    //         ans=max(suma,sumb)+disCnt;
+    //     }
+    // } else {
+    //     if (disCnt>0) {
+    //         ans=max(suma,sumb)+(disCnt-disSum)/2;
+    //     } else {
+    //         ans=min(suma,sumb)-(disCnt-disSum)/2-(disCnt-disSum)%2;
+    //     }
+    // }
+    
+    out(ans);
     out("\n");
 }
 
