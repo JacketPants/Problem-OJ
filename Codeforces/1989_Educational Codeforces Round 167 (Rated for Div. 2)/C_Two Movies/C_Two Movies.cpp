@@ -159,7 +159,7 @@ void cal() {
 
 
 void solve() {
-    int n,a[20005],b[20005];
+    int n,a[200005],b[200005];
     ll suma=0,sumb=0,cntn=0,cnt=0;
     // int cnt[3][3]; // (-1,-1) (-1,0) (-1,1) (0,-1) (0,0) (0,1) (1,-1) (1,0) (1,1)
     // memset(cnt,0,sizeof(cnt));
@@ -172,7 +172,7 @@ void solve() {
     for (int i=0;i<n;i++) {
         if(a[i]==-1&&b[i]==-1) {
             cntn++;
-        } if (a[i]==1 && b[i]==1) {
+        } else if (a[i]==1 && b[i]==1) {
             cnt++;
         } else {
             if (a[i]>b[i]) {
@@ -190,8 +190,20 @@ void solve() {
     if (disSum>=(cnt+cntn)) {
         ans = sumb+cnt;
     } else {
-        ll temp = sumb+cnt;
-        ll 
+        if (disSum<cnt) {
+            sumb=suma;
+            cnt-=disSum;
+            if(cnt>=cntn) {
+                ans=sumb+(cnt-cntn)/2;
+            } else {
+                ans=sumb-(cntn-cnt)/2-(cntn-cnt)%2;
+            }
+        } else {
+            sumb+=cnt;
+            cntn-=(suma-sumb);
+            suma=sumb;
+            ans=sumb-cntn/2-cntn%2;
+        }
     } 
 
     // if (abs(disSum) >= abs(disCnt)) {
